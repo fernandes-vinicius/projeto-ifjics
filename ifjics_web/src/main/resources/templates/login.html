@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html layout:decorate="~{main}">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Login</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="all,follow">
+</head>
+<body>
+	<div layout:fragment="body"
+		class="page-holder d-flex align-items-center">
+		<div class="container">
+			<div class="row align-items-center py-5">
+				<div class="col-5 col-lg-7 mx-auto mb-5 mb-lg-0">
+					<div class="pr-lg-5">
+						<img src="img/illustration.svg" alt="" class="img-fluid">
+					</div>
+				</div>
+				<div class="col-lg-5 px-lg-4">
+					<h1 class="text-base text-primary text-uppercase mb-4">
+						<span th:text="#{template.title}"></span>
+					</h1>
+					<h2 class="mb-4">
+						<span th:text="#{template.login.subtitle}"></span>
+					</h2>
+					<p class="text-muted">
+						<span th:text="#{template.login.desc}"></span>
+					</p>
+
+					<div th:if="${param.error}"
+						class="alert alert-danger alert-dismissible show" role="alert">
+						<span th:text="#{template.login.form.paramError}"></span>
+						<button type="button" class="close" data-dismiss="alert"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+
+					<form id="loginForm" action="/login" method="post" class="mt-4">
+						<div class="form-group mb-4">
+							<input id="username" type="text" name="username"
+								placeholder="Usuário"
+								class="form-control border-0 shadow form-control-lg" required
+								autofocus>
+						</div>
+						<div class="form-group mb-4">
+							<input type="password" name="password" placeholder="Senha"
+								required
+								class="form-control border-0 shadow form-control-lg text-violet">
+						</div>
+						<div class="form-group mb-4">
+							<div class="custom-control custom-checkbox">
+								<input id="customCheck1" type="checkbox" checked
+									class="custom-control-input"> <label for="customCheck1"
+									class="custom-control-label">Remember Me</label>
+							</div>
+						</div>
+
+						<!-- 						<input type="hidden" th:name="${_csrf.parameterName}" -->
+						<!-- 							th:value="${crsf.token}" /> -->
+
+						<button type="submit" class="btn btn-primary shadow px-5">
+							<span th:text="#{template.login.form.buttonLogin}"></span>
+						</button>
+					</form>
+				</div>
+			</div>
+			<p class="mt-5 mb-0 text-gray-400 text-center">
+				<span th:text="#{template.copyright}"></span> <a
+					href="https://bootstrapious.com/admin-templates"
+					class="external text-gray-400">Bootstrapious</a>
+			</p>
+			<!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)                 -->
+		</div>
+	</div>
+</body>
+</html>
+

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Sidebar</title>
+</head>
+<body>
+	<div id="sidebar" class="sidebar py-3" th:fragment="sidebar">
+		<div
+			class="text-gray-400 text-uppercase px-3 px-lg-4 py-4 font-weight-bold small headings-font-family">
+			<span th:text="#{template.sidebar}"></span>
+		</div>
+		<ul class="sidebar-menu list-unstyled">
+			<li class="sidebar-list-item"><a th:href="@{/}"
+				class="sidebar-link text-muted active"><i
+					class="o-home-1 mr-3 text-gray"></i><span
+					th:text="#{template.sidebar.home}"></span></a></li>
+
+		</ul>
+		<div
+			class="text-gray-400 text-uppercase px-3 px-lg-4 py-4 font-weight-bold small headings-font-family">Pontuações</div>
+		<ul class="sidebar-menu list-unstyled">
+			<li class="sidebar-list-item"><a href="#" data-toggle="collapse"
+				data-target="#pages" aria-expanded="false" aria-controls="pages"
+				class="sidebar-link text-muted"><i
+					class="o-imac-screen-1 mr-3 text-gray"></i><span>Quadro de
+						Pontuação</span></a>
+				<div id="pages" class="collapse">
+					<ul
+						class="sidebar-menu list-unstyled border-left border-primary border-thick">
+						<li class="sidebar-list-item"><a th:href="@{/pontuacoes/geral}"
+							class="sidebar-link text-muted pl-lg-5">Pontuação Geral</a></li>
+						<li class="sidebar-list-item"><a href="#"
+							class="sidebar-link text-muted pl-lg-5">Pontuação por
+								Competição</a></li>
+					</ul>
+				</div></li>
+		</ul>
+	</div>
+</body>
+</html>
+

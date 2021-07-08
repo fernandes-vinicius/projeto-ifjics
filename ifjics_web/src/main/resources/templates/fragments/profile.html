@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Profile</title>
+</head>
+<body>
+	<li th:fragment="profile" class="nav-item dropdown ml-auto"><a
+		id="userInfo" href="http://example.com" data-toggle="dropdown"
+		aria-haspopup="true" aria-expanded="false"
+		class="nav-link dropdown-toggle"><img src="/img/avatar-6.jpg"
+			alt="Jason Doe" style="max-width: 2.5rem;"
+			class="img-fluid rounded-circle shadow"></a>
+		<div sec:authorize="isAuthenticated()" aria-labelledby="userInfo"
+			class="dropdown-menu">
+			<a href="#" class="dropdown-item"><strong
+				class="d-block text-uppercase headings-font-family"><label
+					sec:authentication="name">Mark Stephen</label></strong><small>Web
+					Developer</small></a>
+			<div class="dropdown-divider"></div>
+			<a th:href="@{/logout}" class="dropdown-item"><label
+				th:text="#{template.profile.logout}"></label></a>
+		</div></li>
+</body>
+</html>
+

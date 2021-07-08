@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Header</title>
+</head>
+<body>
+	<header class="header" th:fragment="header">
+		<nav class="navbar navbar-expand-lg px-4 py-2 bg-white shadow">
+			<a href="#" class="sidebar-toggler text-gray-500 mr-4 mr-lg-5 lead"><i
+				class="fas fa-align-left"></i></a><a th:href="@{/}"
+				class="navbar-brand font-weight-bold text-uppercase text-base">
+				<span th:text="#{template.title}"></span>
+			</a>
+			<ul class="ml-auto d-flex align-items-center list-unstyled mb-0">
+				<li th:replace="fragments/notifications :: notifications"></li>
+				<li th:replace="fragments/profile :: profile"></li>
+			</ul>
+		</nav>
+	</header>
+</body>
+</html>
+

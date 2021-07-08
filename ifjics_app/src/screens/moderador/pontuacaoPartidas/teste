@@ -1,0 +1,137 @@
+                 else if (this.props.pontuacoes.length > 0){
+            for(var i = 0; i < this.props.pontuacoes.length; i++){
+                if(!this.props.isModalidadeIndividual){
+                    if(this.props.pontuacoes[i].competidor.campus != null){
+                        if((this.props.pontuacoes[i].competidor.campus.id == competidor.id) )
+                            cont++;
+                    } else {
+                        if((this.props.pontuacoes[i].competidor.polo.id == competidor.id) )
+                            cont++;
+                    }
+                }else {
+                    if(this.props.pontuacoes[i].competidor.id == competidor.id)
+                        cont++;
+                }
+                
+            }
+        }
+        if (cont>0)
+            Alert.alert('Já foi adicionada uma pontuação para esse competidor.', 'Selecione outro competidor ou exclua a pontuação já cadastrada.');                               
+                                    
+            autoCapitalize='none'
+                                            keyboardType='phone-pad'                        
+                                    
+                                    
+                                    <Picker
+                                        selectedValue={this.state.selectedPickerCompetidor}
+                                        style={{ height: 50, width: '90%' }}
+                                        onValueChange={(itemValue) => this.setState({ selectedPickerCompetidor: itemValue })}>
+
+                                        <Picker.Item key={null} label={'Selecione o competidor'} value={null} />
+                                        {
+                                            (!this.props.list && !this.props.list.length) ? <Picker.Item note label={'Nenhum item encontrado'} /> :
+                                                (this.state.isModalidadeIndividual) ? this.props.list.map((data) => {
+                                                    return <Picker.Item key={data.id} label={data.nome} value={data} />}) : 
+                                                    this.props.list.map((data) => {
+                                                        if(data.campus != null){ 
+                                                            const competidor = data.campus;
+                                                        } else {
+                                                            const competidor = data.polo;
+                                                        }
+                                                        return <Picker.Item label={competidor.nome} value={this.props.list[i]} /> 
+                                                    }) 
+                                        }
+                                    </Picker>
+
+                                        if (partida) {
+      this.setState({ competicao: partida.competicao });
+      if (partida.competicao.modalidadeColetiva == 1) {
+        var competidor = {polo: {}, campus: {}};
+        for(var i = 0; i < partida.campi.length; i++){
+          const competidores = this.state.list;
+          competidores.push(competidor = {polo: null, campus: partida.campi[i]});
+          this.setState({ list: competidores});
+        }
+        for(var i = 0; i < partida.polos.length; i++){
+          const competidores = this.state.list;
+          competidores.push(competidor = {polo: partida.polos[i], campus: null});
+          this.setState({ list: competidores});
+        }
+      } else if (partida.competicao.modalidadeColetiva == 0) {
+        this.state.list = partida.user;
+        this.setState({ list: partida.user });
+        this.state.isModalidadeIndividual = true;
+      }
+      //Alert.alert(this.state.list[0].campus.nome + 'algo');
+      //Alert.alert(this.state.isModalidadeIndividual + '');
+      
+      Alert.alert(this.state.list.length + 'algo' + this.state.isModalidadeIndividual);
+    }
+
+     else if(this.state.selectedList.length == 0)
+            Alert.alert('Você não selecionou um competidor', 'Selecione o competidor para continuar');
+        else if (this.state.selectedList.length > 1)
+        Alert.alert('Você selecionou mais de um competidor', 'Selecione apenas  competidor para continuar');
+        else {
+
+
+            return (
+            <View>
+                
+                <LoaderComponent visible={this.state.loaderVisible} />
+
+                <Dialog.Container visible={this.props.visible}>
+                    <Dialog.Title>Adicionar Pontuação</Dialog.Title>
+
+                    <Content padder>
+                        <Card style={styles.mb}>
+                            <CardItem>
+                                <Body>
+                                    <Text note>
+                                        Informe a pontuação do competidor.
+                                </Text>
+                                </Body>
+                            </CardItem>
+
+                            <CardItem>
+                                <Body>
+                                    <Item>
+                                        <Icon style={{ color: commonColor.secondary }} type='FontAwesome' name='trophy' />
+                                        <Input
+                                            value={this.state.pontos}
+                                            onChangeText={(pontos) => this.setState({ pontos })}
+                                            maxLength={250}
+                                            placeholder="Pontuação" />
+                                    </Item>
+                                </Body>
+                            </CardItem>
+                        </Card>
+
+                        <Card style={styles.mb}>
+                            <CardItem>
+                            <Icon style={{ color: commonColor.secondary }} type='FontAwesome' name="map" />
+                                <Body>
+                                    <Text note>
+                                        Selecione primeiro o competidor.
+                                    </Text>
+                                </Body>
+                            </CardItem>
+
+                            <CardItem>
+                                <SelectMultipleComponent
+                                    enableEmptySections
+                                    items={this.state.list.map(c => ({label: ((c.campus != null && !this.state.isModalidadeIndividual) ? c.campus.nome : (c.polo != null) ?  "Polo: " + c.polo.nome : c.nome ), value: c,}))}
+                                    selectedItems={this.state.selectedList}
+                                    onSelectionsChange={this.onSelectionsChangePlayers} />
+                            </CardItem>
+                        </Card>
+
+                        <Separator style={{ backgroundColor: 'transparent' }} />
+
+                    </Content>
+
+                    <Dialog.Button onPress={this.props.onCancel} label="Cancelar" />
+                    <Dialog.Button onPress={this.onPressAdd} label="Adicionar" />
+                </Dialog.Container>
+            </View>
+        );

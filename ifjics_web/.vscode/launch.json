@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-App<ifjics_web>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "br.edu.ifrn.projetoifjics.app.App",
+            "projectName": "ifjics_web",
+            "args": ""
+        }
+    ]
+}

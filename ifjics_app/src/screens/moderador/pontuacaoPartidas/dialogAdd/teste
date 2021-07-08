@@ -1,0 +1,117 @@
+    state = {
+        list: this.props.list,
+        pontos: null,
+        loaderVisible: false,
+        selectedList: [],
+        data: this.props.data,
+        isModalidadeIndividual: this.props.isModalidadeIndividual,
+    };
+
+
+    onPressAdd = () => {
+
+        let pontos = this.state.pontos;
+        Alert.alert(this.state.isModalidadeIndividual + '+' + this.state.list.length + this.state.selectedList);
+        if (pontos == null)
+            Alert.alert('Você não informou a pontuacao do competidor');
+        else if(this.state.selectedList.length == 0)
+            Alert.alert('Você não selecionou um competidor', 'Selecione o competidor para continuar');
+        else if (this.state.selectedList.length > 1)
+            Alert.alert('Você selecionou mais de um competidor', 'Selecione apenas  competidor para continuar');
+        else {
+            const pontuacao = {
+                competidor: this.state.selectedList[0],
+                pontos: pontos,
+            };
+
+            this.props.onAdd(pontuacao);
+
+            this.setState({
+                selectedList: [],
+                loaderVisible: false,
+                pontos: null,
+            });
+        }
+    };
+
+    onSelectionsChangePlayers = (selectedList) => {
+        this.setState({ selectedList });
+      }
+
+    itens = () => {
+        if(this.state.isModalidadeIndividual){
+            this.state.list.map(c => ({label: c.nome, value: c,}))
+        }else {
+            this.state.list.map(c => ({
+                label: ((c.campus != null) ? c.campus.nome :  "Polo: " + c.polo.nome),
+                 value: c,}))
+        }
+    }  
+
+    render() {
+
+        return (
+            <View>
+                
+                <LoaderComponent visible={this.state.loaderVisible} />
+
+                <Dialog.Container visible={this.props.visible}>
+                    <Dialog.Title>Adicionar Pontuação</Dialog.Title>
+
+                    <Content padder>
+                        <Card style={styles.mb}>
+                            <CardItem>
+                                <Body>
+                                    <Text note>
+                                        Informe a pontuação do competidor.
+                                </Text>
+                                </Body>
+                            </CardItem>
+
+                            <CardItem>
+                                <Body>
+                                    <Item>
+                                        <Icon style={{ color: commonColor.secondary }} type='FontAwesome' name='trophy' />
+                                        <Input
+                                            value={this.state.pontos}
+                                            onChangeText={(pontos) => this.setState({ pontos })}
+                                            maxLength={250}
+                                            placeholder="Pontuação" />
+                                    </Item>
+                                </Body>
+                            </CardItem>
+                        </Card>
+
+                        <Card style={styles.mb}>
+                            <CardItem>
+                            <Icon style={{ color: commonColor.secondary }} type='FontAwesome' name="map" />
+                                <Body>
+                                    <Text note>
+                                        Selecione primeiro o competidor.
+                                    </Text>
+                                </Body>
+                            </CardItem>
+
+                            <CardItem>
+                                <SelectMultipleComponent
+                                    enableEmptySections
+                                    items={(this.state.isModalidadeIndividual) ? this.state.list.map((data) => ({label: data.nome, value: data,}))
+                                    : this.state.list.map(c => ({
+                                        label: ((c.campus != null) ? c.campus.nome :  "Polo: " + c.polo.nome),
+                                        value: c,}))}
+                                    selectedItems={this.state.selectedList}
+                                    onSelectionsChange={this.onSelectionsChangePlayers} />
+                            </CardItem>
+                        </Card>
+
+                        <Separator style={{ backgroundColor: 'transparent' }} />
+
+                    </Content>
+
+                    <Dialog.Button onPress={this.props.onCancel} label="Cancelar" />
+                    <Dialog.Button onPress={this.onPressAdd} label="Adicionar" />
+                </Dialog.Container>
+            </View>
+        );
+    }
+}
